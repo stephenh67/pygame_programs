@@ -2,6 +2,7 @@ import pygame
 import math
 import random
 from pygame import mixer
+import pysnooper
 
 # initialize the pygame
 pygame.init()
@@ -40,10 +41,10 @@ num_of_enemies = 6
 
 for i in range(num_of_enemies):
     enemy_img.append(pygame.image.load('images/alien.png'))
-    enemy_x.append(random.randint(0, 735))
-    enemy_y.append(random.randint(50, 150))
-    enemy_x_change.append(.5)
-    enemy_y_change.append(40)
+    enemy_x.append(random.randint(0, 725))
+    enemy_y.append(random.randint(0, 150))
+    enemy_x_change.append(3)
+    enemy_y_change.append(10)
 
 # bullet
 bullet_img = pygame.image.load('images/bullet.png')
@@ -59,11 +60,20 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 text_x = 10
 text_y = 10
 
+score_value = 0
+
+# game over text
+game_over_font = pygame.font.Font('freesansbold.ttf', 64)
+
+
 def show_score(x, y):
     score = font.render('Score: ' + str(score_value), True, (255, 255, 255))
-    screen.blit(score, (text_x, text_y))
+    screen.blit(score, (x, y))
 
-score_value = 0
+
+def game_over_text():
+    game_over_text = game_over_font.render('GAME OVER: ', True, (255, 255, 255))
+    screen.blit(game_over_text, (200, 250))
 
 
 def fire_bullet(x, y):
@@ -76,8 +86,8 @@ def player(x, y):
     screen.blit(player_img, (int(x), int(y)))
 
 
-def enemy(x, y, i):
-    screen.blit(enemy_img[i], (int(x), int(y)))
+def enemy(x, y, z):
+    screen.blit(enemy_img[z], (int(x), int(y)))
 
 
 def is_collision(e_x, e_y, b_x, b_y):
@@ -127,13 +137,19 @@ while running:
 
     # enemy movement
     for i in range(num_of_enemies):
+        # game over
+        if enemy_y[i] > 525:
+            for j in range(num_of_enemies):
+                enemy_y[j] = 2000
+            game_over_text()
+            break
         enemy_x[i] += enemy_x_change[i]
 
         if enemy_x[i] <= 0:
-            enemy_x_change[i] = .5
+            enemy_x_change[i] = 10
             enemy_y[i] += enemy_y_change[i]
         elif enemy_x[i] >= screen_width - enemy_width:
-            enemy_x_change[i] = -.5
+            enemy_x_change[i] = - 3
             enemy_y[i] += enemy_y_change[i]
 
         # collision
@@ -159,8 +175,6 @@ while running:
     if bullet_state == 'fire':
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
-
-
 
     player(player_x, player_y)
     show_score(text_y, text_y)
