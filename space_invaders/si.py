@@ -1,4 +1,6 @@
 import pygame
+import math
+
 
 # initialize the pygame
 pygame.init()
@@ -37,6 +39,8 @@ bullet_y = 480
 bullet_y_change = 5
 bullet_state = 'ready'
 
+score = 0
+
 
 def fire_bullet(x, y):
     global bullet_state
@@ -52,13 +56,21 @@ def enemy(x, y):
     screen.blit(alien_img, (int(x), int(y)))
 
 
+def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
+    distance = math.sqrt(math.pow(enemy_x - bullet_x, 2) + math.pow(enemy_y - bullet_y, 2))
+    if distance < 27:
+        return True
+    else:
+        return False
+
+
 # game loop
 running = True
 while running:
 
     screen.fill((0, 0, 0))
     # set background
-    screen.blit(background, (0,0))
+    screen.blit(background, (0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -66,9 +78,9 @@ while running:
         # if keystroke is pressed check whether its right or left
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_x_change -= .5
+                player_x_change -= 2.5
             if event.key == pygame.K_RIGHT:
-                player_x_change = .5
+                player_x_change = 2.5
             if event.key == pygame.K_SPACE:
                 if bullet_state == 'ready':
                     # get the current x of ship
@@ -107,7 +119,13 @@ while running:
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
+    # collision
+    collision = is_collision(enemy_x, enemy_y, bullet_x, bullet_y)
+    if collision:
+        bullet_y = 480
+        bullet_state = 'ready'
+        score += 1
+        print(score)
     player(player_x, player_y)
     enemy(enemy_x,enemy_y)
     pygame.display.update()
-
