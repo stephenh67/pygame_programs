@@ -15,6 +15,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load('images/alien.png')
 pygame.display.set_icon(icon)
+background = pygame.image.load('images/background.png')
 
 # player
 player_img = pygame.image.load('images/rocket.png')
@@ -42,7 +43,8 @@ running = True
 while running:
 
     screen.fill((0, 0, 0))
-
+    # set background
+    screen.blit(background, (0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
