@@ -12,26 +12,28 @@ icon = pygame.image.load('images/alien.png')
 pygame.display.set_icon(icon)
 
 
-def player():
-    screen.blit(player_img, (player_x, player_y))
+def player(x, y):
+    screen.blit(player_img, (x, y))
+
 
 # player
 player_img = pygame.image.load('images/rocket.png')
 player_x = 370
 player_y = 400
+player_x_change = 5
 
 # game loop
 running = True
 while running:
 
     screen.fill((0, 0, 0))
-
+    player_x += 0.1
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
 
 
-    player()
+    player(player_x, player_y)
     pygame.display.update()
 
