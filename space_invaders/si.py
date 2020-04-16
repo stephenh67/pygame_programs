@@ -41,7 +41,7 @@ bullet_state = 'ready'
 def fire_bullet(x, y):
     global bullet_state
     bullet_state = 'fire'
-    screen.blit(bullet_img, (x + 28, y + 10))
+    screen.blit(bullet_img, (x + 20, y + 10))
 
 
 def player(x, y):
@@ -93,6 +93,11 @@ while running:
     elif enemy_x >= screen_width - enemy_width:
         enemy_x_change = -.5
         enemy_y += enemy_y_change
+
+
+    if bullet_y <= 0:
+        bullet_y = 480
+        bullet_state = 'ready'
 
     # bullet movement
     if bullet_state == 'fire':
