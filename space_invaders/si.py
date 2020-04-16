@@ -32,8 +32,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        # if keystroke is pressed check whether its right or left
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                print("Left arrow")
+            if event.key == pygame.K_RIGHT:
+                print('Right arrow')
 
-
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                print("key released")
     player(player_x, player_y)
     pygame.display.update()
 
