@@ -71,11 +71,12 @@ while running:
 
     if enemy_x <= 0:
         enemy_x_change = .5
+        enemy_y += enemy_y_change
     elif enemy_x >= screen_width - enemy_width:
         enemy_x_change = -.5
+        enemy_y += enemy_y_change
 
     player(player_x, player_y)
     enemy(enemy_x,enemy_y)
-    enemy(enemy_x, enemy_y)
     pygame.display.update()
 
