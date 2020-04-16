@@ -7,6 +7,7 @@ pygame.init()
 screen_width = 800
 screen_height = 600
 player_width = 64
+enemy_width = 64
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 
@@ -25,8 +26,8 @@ player_x_change = 0
 alien_img = pygame.image.load('images/alien.png')
 enemy_x = 370
 enemy_y = 80
-enemy_x_change = 0
-
+enemy_x_change = .5
+enemy_y_change = 40
 
 def player(x, y):
     screen.blit(player_img, (int(x), int(y)))
@@ -57,6 +58,7 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
 
+    # checking for boundaries shi[
     player_x += player_x_change
 
     if player_x <= 0:
@@ -64,7 +66,16 @@ while running:
     elif player_x >= screen_width - player_width:
         player_x = screen_width- player_width
 
+    #
+    enemy_x += enemy_x_change
+
+    if enemy_x <= 0:
+        enemy_x_change = .5
+    elif enemy_x >= screen_width - enemy_width:
+        enemy_x_change = -.5
+
     player(player_x, player_y)
+    enemy(enemy_x,enemy_y)
     enemy(enemy_x, enemy_y)
     pygame.display.update()
 
