@@ -56,8 +56,8 @@ def enemy(x, y):
     screen.blit(alien_img, (int(x), int(y)))
 
 
-def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
-    distance = math.sqrt(math.pow(enemy_x - bullet_x, 2) + math.pow(enemy_y - bullet_y, 2))
+def is_collision(e_x, e_y, b_x, b_y):
+    distance = math.sqrt(math.pow(e_x - b_x, 2) + math.pow(e_y - b_y, 2))
     if distance < 27:
         return True
     else:
@@ -126,6 +126,10 @@ while running:
         bullet_state = 'ready'
         score += 1
         print(score)
+        enemy_x = 370
+        enemy_y = 80
+
     player(player_x, player_y)
-    enemy(enemy_x,enemy_y)
+    enemy(enemy_x, enemy_y)
+
     pygame.display.update()
