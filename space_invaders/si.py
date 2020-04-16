@@ -15,16 +15,25 @@ pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load('images/alien.png')
 pygame.display.set_icon(icon)
 
-
-def player(x, y):
-    screen.blit(player_img, (int(x), int(y)))
-
-
 # player
 player_img = pygame.image.load('images/rocket.png')
 player_x = (screen_width - (player_width / 2)) / 2
 player_y = 525
 player_x_change = 0
+
+# alien
+alien_img = pygame.image.load('images/alien.png')
+enemy_x = 370
+enemy_y = 80
+enemy_x_change = 0
+
+
+def player(x, y):
+    screen.blit(player_img, (int(x), int(y)))
+
+
+def enemy(x, y):
+    screen.blit(alien_img, (int(x), int(y)))
 
 
 # game loop
@@ -56,5 +65,6 @@ while running:
         player_x = screen_width- player_width
 
     player(player_x, player_y)
+    enemy(enemy_x, enemy_y)
     pygame.display.update()
 
