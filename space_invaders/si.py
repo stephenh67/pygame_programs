@@ -70,7 +70,10 @@ while running:
             if event.key == pygame.K_RIGHT:
                 player_x_change = .5
             if event.key == pygame.K_SPACE:
-                fire_bullet(player_x, bullet_y)
+                if bullet_state == 'ready':
+                    # get the current x of ship
+                    bullet_x = player_x
+                    fire_bullet(player_x, bullet_y)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -82,7 +85,7 @@ while running:
     if player_x <= 0:
         player_x = 0
     elif player_x >= screen_width - player_width:
-        player_x = screen_width- player_width
+        player_x = screen_width - player_width
 
     #
     enemy_x += enemy_x_change
@@ -94,14 +97,14 @@ while running:
         enemy_x_change = -.5
         enemy_y += enemy_y_change
 
-
+    # check if bullet off screen
     if bullet_y <= 0:
         bullet_y = 480
         bullet_state = 'ready'
 
     # bullet movement
     if bullet_state == 'fire':
-        fire_bullet(player_x, bullet_y)
+        fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
     player(player_x, player_y)
