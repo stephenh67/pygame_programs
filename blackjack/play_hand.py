@@ -82,6 +82,16 @@ def play_hand(bet, chips, player, dealer, deck):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            if event.type == pygame.KEYUP:
+                # check if player has blackjack
+                if player.value == 21:
+                    # blackjack text
+                    gf.add_text('Blackjack!!! You WIN!!', font, bj_settings.screen, 600, 460, bj_settings.BLACK)
+                    gf.add_text('Press space to continue', font, bj_settings.screen, 600, 500, bj_settings.BLACK)
+                    pygame.display.update()
+                    blackjack = True
+                    double_prize = True
             # Game logic to allow to allow button presses on keyboard.
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and double_prize is True:
