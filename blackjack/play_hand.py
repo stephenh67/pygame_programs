@@ -92,6 +92,7 @@ def play_hand(bet, chips, player, dealer, deck):
                     pygame.display.update()
                     blackjack = True
                     double_prize = True
+
             # Game logic to allow to allow button presses on keyboard.
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and double_prize is True:
